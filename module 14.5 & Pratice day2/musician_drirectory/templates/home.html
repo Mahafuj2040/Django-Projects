@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="mx-5 pt-5 position-relative">
+  <table class="table table-bordered border-primary">
+    <thead>
+      <tr class="table-active">
+        <th scope="col">ID</th>
+        <th scope="col">Musician Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Instrument Type</th>
+        <th scope="col">Album Name</th>
+        <th scope="col">Release Date</th>
+        <th scope="col">Album Rating</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for musician in musicians %}
+        {% for albumb in musician.albumbs.all %}
+          <tr>
+            <th scope="row">{{ musician.id }}</th>
+            <td><a href="{% url 'musician_edit' musician.id %}">{{ musician.first_name }} {{ musician.last_name }}</a></td>
+            <td>{{ musician.email }}</td>
+            <td>{{ musician.instrument_type }}</td>
+            <td>{{ albumb.albumb_name }}</td>
+            <td>{{ albumb.release_date }}</td>
+            <td>{{ albumb.rating }}</td>
+            <td>
+              <div class="">
+                <a href="{% url 'edit_albumb' albumb.id %}" class="btn btn-warning btn-sm p-2">Edit</a>
+                <a href="{% url 'delete_albumb' albumb.id %}" class="btn btn-danger btn-sm p-2">Delete</a>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% endblock content %}
