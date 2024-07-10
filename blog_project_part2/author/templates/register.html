@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+
+<div class="container">
+    <div class="custom-border">
+        {% load crispy_forms_tags %}
+        <form action="" style="width:80%; margin:auto" method="post">
+            <div class="mb-5 text-center">
+                <h1>{{type}} Page</h1>
+            </div>
+            {% csrf_token %}
+
+            <!--  {{ form|crispy }} -->
+            {% for fm in form %}
+            <div class="mb-3">
+                {{ fm.label }}
+                {{ fm }}
+                <div class="text-danger">{{ fm.errors | striptags }}</div>
+            </div>
+            {% endfor %}
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <br>
+            {% comment %} <small>Already have an account? <a href="{% url 'login' %}">Login</a></small> {% endcomment %}
+        </form>
+    </div>
+
+
+    <style>
+        .custom-border {
+            width: 60%;
+            margin: auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            padding: 20px;
+            margin-top: 50px;
+    
+        }
+
+        .custom-modal-header {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .custom-modal-footer {
+            background-color: #f1f1f1;
+        }
+    </style>
+
+{% endblock content %}

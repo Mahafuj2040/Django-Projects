@@ -1,0 +1,20 @@
+{% extends 'home.html' %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center mt-5 pt-5">
+    <h1 style="text-transform: uppercase;" class="d-flex gap-3">HELLO! <div class="text-danger" "text-transform: uppercase;">{{ user }}</div></h1>
+    <h1>Welcome to Your Profile</h1>
+    
+
+    <!-- Trigger the modal with a script if messages are present -->
+   
+    <div class="d-flex gap-5 mt-5">
+        <p><a href="{% url 'passwordchange' %}" class="btn btn-primary">Change Your Password</a></p>
+        <p><a href="{% url 'passwordchange2' %}" class="btn btn-success">Change Your Password Without Password</a></p>
+        <p><a href="{% url 'change_data' %}" class="btn btn-warning">Update Your Profile</a></p>
+    </div>
+</div>
+
+
+
+{% endblock content %}

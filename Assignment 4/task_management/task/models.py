@@ -1,6 +1,5 @@
 from django.db import models
 from category.models import TaskCategory
-
 # Create your models here.
 
 class TaskModel(models.Model):
