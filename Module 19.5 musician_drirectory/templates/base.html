@@ -12,6 +12,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <title>Musician Project</title>
   </head>
@@ -32,27 +33,67 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if user.is_authenticated %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'add_musician' %}">Add Musician</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'add_albumb' %}">Add Album</a>
             </li>
+            {% endif %}
           </ul>
           <form class="d-flex">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile'%}" class="btn btn-outline-success text-white mx-4" type="submit">Profile</a>
+                <a href="{% url 'logout'%}" class="btn btn-outline-warning text-white" type="submit">Log Out</a>
+                {% else %}
+                <a href="{% url 'signup'%}" class="btn btn-outline-success text-white mx-4" type="submit">Sign Up</a>
+                <a href="{% url 'login'%}" class="btn btn-outline-warning text-white" type="submit">Login</a>
+            {% endif %}
           </form>
         </div>
       </div>
     </nav>
+
+
+
+
+
+
+     {% if messages %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+            messageModal.show();
+        });
+    </script>
+    {% endif %}
+
+
+    {% if messages %}
+      <div class="modal" id="messageModal" tabindex="-1">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <div class="modal-header custom-modal-header">
+                      <h5 class="modal-title">Messages</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      {% for message in messages %}
+                      <p class="p-3">{{ message }}</p>
+                      {% endfor %}
+                  </div>
+                  <div class="modal-footer custom-modal-footer">
+                      <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  {% endif %}
+
+
+
+
 
     <div class="mt-5">
         {% block content %}

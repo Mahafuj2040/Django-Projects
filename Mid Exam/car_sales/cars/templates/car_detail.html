@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  
+
+<div class="card mb-3" >
+        <img src="{{ car.image.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <div>
+                <h1 class="card-title text-center text-danger mx-5">{{ car.title }}</h1>
+                <h6>Price: {{ car.price }} USD</h6>
+                <h6>Brand: {{ car.brand.name }}</h6>
+                <h6>Quantity: {{ car.quantity }}</h6>
+                <p class="card-text">{{ car.description }}</p>
+            </div>
+            
+            <div class="text-center align-items-center mb-3">
+                {% if user.is_authenticated %}
+                    <form action="{% url 'buy_car' car.pk %}" method="post">
+                        {% csrf_token %}
+                        <button  class="btn btn-info" type="submit">Buy Now</button>
+                    </form>   
+                {% endif %}
+            </div>
+        </div class="">
+</div>
+
+
+<div class="card mt-5">
+    <h5 class="p-3">Total Comments : {{comments | length}}</h5>
+    {% for comment in comments %}
+    <div class="card-body">
+        <p><b>{{comment.name}}</b> : {{ comment.comment }}</p>
+        <p>{{comment.body}}</p>
+        <div class="card-footer text-muted">
+            {{comment.created_on}}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+  <div class="container mb-5">
+
+    <div class="custom-border">
+        {% load crispy_forms_tags %}
+        <form action="" style="width:95%; margin:auto" method="post">
+            <div class="mb-5 text-center">
+                <h1>Add Your Comment</h1>
+            </div>
+            {% csrf_token %}
+
+            <!--  {{ comment_form |crispy }} -->
+            {% for fm in comment_form %}
+            <div class="mb-3">
+                {{ fm.label }}
+                {{ fm }}
+                <div class="text-danger">{{ fm.errors | striptags }}</div>
+            </div>
+            {% endfor %}
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <br>
+            {% comment %} <small>Already have an account? <a href="{% url 'login' %}">Login</a></small> {% endcomment %}
+        </form>
+    </div>
+
+
+    <style>
+        .container{
+            
+        }
+        .custom-border {
+            background-color: #fefbd8;
+            width: 60%;
+            margin: auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+            padding: 20px;
+            margin-top: 50px;
+    
+        }
+
+        .custom-modal-header {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .custom-modal-footer {
+            background-color: #f1f1f1;
+        }
+    </style>
+{% endblock %}

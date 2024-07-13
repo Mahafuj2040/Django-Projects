@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="align-items-center row mb-5">
+  <div class="col-6">
+    <h1 class="text-center mb-3 text-danger">BUY YOUR NEW CAR</h1>
+    <p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+  </div>
+
+  <div class="col-5 mx-4">
+    <img style="width: 600px;" src="{% static 'vg.png' %}" alt="Home Image">
+  </div>
+</div>
+
+<div style="margin-top: 70px;">
+    <form method="get" action=".">
+        <div class="form-floating mt-5">
+            <select class="form-select" id="floatingSelect" name="brand" aria-label="Floating label select example" onchange="this.form.submit()">
+            <option value=""><a href="{% url 'home' %}">All Brands</a></option>
+            {% for brand in brands %}
+            <option value="{{ brand.id }}" {% if brand.id|stringformat:"s" == selected_brand_id %}selected{% endif %}>{{ brand.name }}</option>
+            {% endfor %}
+            </select>
+            <label for="floatingSelect">Select Your Brands</label>
+        </div>
+    </form>
+</div>
+
+<div class="col-sm-8 col-md-9 col-lg-10 text-center align-items-center mb-5">
+  <h1 class="p-3 mt-5 mb-5">{{ cars|length }} results found</h1>
+  <div class="row">
+    <div class="d-flex flex-wrap px-3">
+      {% for car in cars %}
+      <div class="col-sm-6 col-md-6 col-lg-4 p-2">
+        <div class="card mx-3">
+          <div class="card-body">
+            <img src="{{ car.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ car.title }}">
+            <h4 class="card-title m-4"><a href="{% url 'car_detail' car.id %}" class="text-decoration-none text-info">{{ car.title }}</a></h4>
+            <p class="card-text">{{ car.description|truncatewords:30 }}</p>
+            <p>Price: ${{ car.price }}</p>
+            <p>Quantity: {{ car.quantity }}</p>
+            <p>Brand: {{ car.brand.name }}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

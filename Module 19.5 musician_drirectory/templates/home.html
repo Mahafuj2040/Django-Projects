@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div class="mx-5 pt-5 position-relative">
+<div class="mx-5 pt-5 position-relative justify-content-center text-center">
   <table class="table table-bordered border-primary">
     <thead>
       <tr class="table-active">
@@ -14,7 +14,9 @@
         <th scope="col">Album Name</th>
         <th scope="col">Release Date</th>
         <th scope="col">Album Rating</th>
+        {% if user.is_authenticated %}
         <th scope="col">Actions</th>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
@@ -28,12 +30,14 @@
             <td>{{ albumb.albumb_name }}</td>
             <td>{{ albumb.release_date }}</td>
             <td>{{ albumb.rating }}</td>
+            {% if user.is_authenticated %}
             <td>
               <div class="">
                 <a href="{% url 'edit_albumb' albumb.id %}" class="btn btn-warning btn-sm p-2">Edit</a>
                 <a href="{% url 'delete_albumb' albumb.id %}" class="btn btn-danger btn-sm p-2">Delete</a>
               </div>
             </td>
+            {% endif %}
           </tr>
         {% endfor %}
       {% endfor %}

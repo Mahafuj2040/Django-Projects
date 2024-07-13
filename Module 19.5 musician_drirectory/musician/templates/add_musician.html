@@ -8,5 +8,13 @@
     {{form | crispy}}
 
     <button class="btn btn-warning">Submit</button>
+
+    {% if is_editing %}
+       <a href="{% url 'musician_delete' musician.id %}" class="btn btn-danger">delete</a>
+    {% endif %}
+
+    
+    
+
 </form>
 {% endblock content %}

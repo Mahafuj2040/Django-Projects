@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('add/', views.add_musician, name='add_musician'),
-    path('delete/<int:id>/', views.musician_delete, name='musician_delete'),
-    path('edit/<int:id>/', views.musician_edit, name='musician_edit'),
+    path('musician/add/', views.MusicianCreateView.as_view(), name='add_musician'),
+    path('musician/delete/<int:pk>/', views.MusicianDeleteView.as_view(), name='musician_delete'),
+    path('musician/edit/<int:pk>/', views.MusicianUpdateView.as_view(), name='musician_edit'),
+    path('', views.MusicianListView.as_view(), name="homepage"),
 ]

@@ -20,7 +20,8 @@ from musician import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.musician_list, name="homepage"),
+    
     path('albumb/', include('albumb.urls')),
-    path('musician/', include('musician.urls')),
+    path('', include('musician.urls')),
+    path('accounts/', include('accounts.urls')),
 ]

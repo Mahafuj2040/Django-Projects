@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex flex-column align-items-center justify-content-center mt-5 pt-5">
+    <h1 style="text-transform: uppercase;" class="d-flex gap-3">HELLO! <div class="text-danger" "text-transform: uppercase;">{{ user }}</div></h1>
+    <h1>Welcome to Your Profile</h1>
+    
+
+    <!-- Trigger the modal with a script if messages are present -->
+   
+    <div class="d-flex gap-5 mt-5">
+        <p><a href="{% url 'passwordchange' %}" class="btn btn-primary">Change Your Password</a></p>
+
+        <p><a href="{% url 'change_data' %}" class="btn btn-warning">Update Your Profile</a></p>
+    </div>
+</div>
+
+
+<h2>Order History</h2>
+
+<div class="row ">
+    {% for order in orders %}
+        <div class="col-sm-6 col-md-6 col-lg-4 p-2 mt-3 ">
+        <div class="card mx-3 border-0 ">
+            <div class="card-body shadow bg-body rounded text-center align-items-center">
+            <img src="{{ order.car.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ order.car.title }}">
+            <h4 class="card-title m-4"><a href="{% url 'car_detail' order.car.id %}" class="text-decoration-none text-info">{{ order.car.title }}</a></h4>
+            <p class="card-text">{{ car.description|truncatewords:30 }}</p>
+            <p>Price: ${{ order.car.price }}</p>
+            <p>Quantity: {{ order.car.quantity }}</p>
+            <p>Brand: {{ order.car.brand.name }}</p>
+            <p>Order Time: {{ order.order_date }}</p>
+            </div>
+        </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+{% endblock content %}
